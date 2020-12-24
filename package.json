@@ -1,85 +1,75 @@
 {
-  "name": "radius",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@apollo/client": "^3.1.4",
-    "@loadable/component": "^5.13.1",
-    "@sentry/apm": "^5.19.2",
-    "@sentry/react": "^5.19.2",
-    "@types/classnames": "^2.2.10",
-    "@types/loadable__component": "^5.13.0",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.53",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-router-dom": "^5.1.5",
-    "apollo-upload-client": "^14.1.2",
-    "classnames": "^2.2.6",
-    "date-fns": "^2.16.1",
-    "env-cmd": "^10.1.0",
-    "graphql": "^15.3.0",
-    "gzipper": "^4.0.0",
-    "node-sass": "npm:sass@^1.26.8",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-router": "^5.2.0",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.1",
-    "sass": "^1.26.10",
-    "shelljs.exec": "^1.1.8",
-    "typescript": "^4.0.3",
-    "web-vitals": "^0.2.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "gzip": "gzipper c ./build",
-    "deploy": "node scripts/deploy.js --unhandled-rejections=strict",
-    "prettier": "prettier --write \"src/**/*.{ts,tsx,css,scss,md,json,js,jsx}\"",
-    "graphql:generate": "graphql-codegen -r dotenv-flow/config",
-    "graphql:watch": "yarn graphql:generate -- -w"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "homepage": "/",
-  "devDependencies": {
-    "@graphql-codegen/cli": "1.17.8",
-    "@graphql-codegen/import-types-preset": "^1.17.9",
-    "@graphql-codegen/typescript": "1.17.8",
-    "@graphql-codegen/typescript-operations": "^1.17.8",
-    "@graphql-codegen/typescript-react-apollo": "^2.0.6",
-    "dotenv-flow": "^3.2.0",
-    "husky": "^4.2.5",
-    "lint-staged": "^10.2.13",
-    "prettier": "^2.1.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.(js|jsx|ts|tsx|json|css|scss|md)": [
-      "prettier --write",
-      "git add"
-    ]
-  }
+	"name": "@bibasoft/radius",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@loadable/component": "^5.13.1",
+		"@sentry/apm": "^5.19.2",
+		"@sentry/react": "^5.19.2",
+		"@types/classnames": "^2.2.10",
+		"@types/loadable__component": "^5.13.0",
+		"@types/node": "^12.0.0",
+		"@types/react": "^16.9.53",
+		"@types/react-dom": "^16.9.8",
+		"@types/react-router-dom": "^5.1.5",
+		"classnames": "^2.2.6",
+		"date-fns": "^2.16.1",
+		"env-cmd": "^10.1.0",
+		"gzipper": "^4.0.0",
+		"node-sass": "npm:sass@^1.26.8",
+		"react": "^17.0.1",
+		"react-dom": "^17.0.1",
+		"react-router": "^5.2.0",
+		"react-router-dom": "^5.2.0",
+		"react-scripts": "4.0.1",
+		"sass": "^1.26.10",
+		"shelljs.exec": "^1.1.8",
+		"typescript": "^4.0.3",
+		"web-vitals": "^0.2.4"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject",
+		"gzip": "gzipper c ./build",
+		"deploy": "node scripts/deploy.js --unhandled-rejections=strict",
+		"prettier": "prettier --write \"src/**/*.{ts,tsx,css,scss,md,json,js,jsx}\""
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"homepage": "/",
+	"devDependencies": {
+		"dotenv-flow": "^3.2.0",
+		"husky": "^4.2.5",
+		"lint-staged": "^10.2.13",
+		"prettier": "^2.1.1"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"src/**/*.(js|jsx|ts|tsx|json|css|scss|md)": [
+			"prettier --write",
+			"git add"
+		]
+	}
 }

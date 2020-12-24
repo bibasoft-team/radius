@@ -3,9 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import reportWebVitals from './reportWebVitals'
 import * as Sentry from '@sentry/react'
-import { ApolloProvider } from '@apollo/client'
 import { App } from 'components/App'
-import { client } from 'api/graphql'
 
 import './index.scss'
 
@@ -19,9 +17,7 @@ if (process.env.NODE_ENV === 'production')
 ReactDOM.render(
 	<React.StrictMode>
 		<Sentry.ErrorBoundary>
-			<ApolloProvider client={client}>
-				<App />
-			</ApolloProvider>
+			<App />
 		</Sentry.ErrorBoundary>
 	</React.StrictMode>,
 	document.getElementById('root'),

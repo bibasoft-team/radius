@@ -14,7 +14,7 @@ steps:
       AWS_ENDPOINT:
         from_secret: s3_endpoint
       AWS_TARGET: ${DRONE_REPO_NAME}/${DRONE_SOURCE_BRANCH}/
-      AWS_BUCKET: my-super-bucket
+      AWS_BUCKET: bibasoft-frontend
     commands:
       - >-
         docker build
@@ -38,7 +38,7 @@ steps:
       message: >
         {{#success build.status}}
         ✅ #{{build.number}} {{repo.name}} / {{commit.branch}} - {{commit.message}}
-        link: {{commit.branch}}.{{repo.name}}.example.com
+        link: {{commit.branch}}.radius.bibasoft.ru
         {{else}}
         🛑#{{build.number}} {{repo.name}} / {{commit.branch}} - {{commit.message}}
         @{{commit.author}} please fix it
@@ -78,7 +78,7 @@ steps:
       AWS_ENDPOINT:
         from_secret: s3_endpoint
       AWS_TARGET: ${DRONE_REPO_NAME}/${DRONE_SOURCE_BRANCH}/
-      AWS_BUCKET: my-super-bucket
+      AWS_BUCKET: bibasoft-frontend
     commands:
       - >-
         docker build
@@ -102,7 +102,7 @@ steps:
       message: >
         {{#success build.status}}
         ✅ #{{build.number}} {{repo.name}} / {{commit.branch}} - {{commit.message}}.
-        link: example.com
+        link: radius.bibasoft.ru
         {{else}}
         🛑#{{build.number}} {{repo.name}} / {{commit.branch}} - {{commit.message}}.
         @{{commit.author}} please fix it
