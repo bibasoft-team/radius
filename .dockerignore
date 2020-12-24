@@ -1,0 +1,39 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+/path.js
+# production
+/build
+/builds
+
+/storybook-static
+
+/.vscode
+
+# misc
+.DS_Store
+.env.development.local
+.env.test.local
+.env.production.local
+.idea
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+/.github
+/.storybook
+/.drone.yml
+/.prettierrc
+/apollo.config.js
+/codegen.yml
+/graphql.config.js
+/README.md
+

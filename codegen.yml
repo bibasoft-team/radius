@@ -1,0 +1,43 @@
+overwrite: true
+schema: 
+  - ${REACT_APP_GRAPHQL_HOST}:
+      headers:
+        SCHEMA_AUTH: ${REACT_APP_GRAPHQL_SCHEMA_KEY}
+documents: "src/api/graphql/**/*.graphql"
+generates:
+  src/api/graphql/generated/graphql.d.ts:
+    plugins:
+      - "typescript"
+    config:
+      typesPrefix: I
+      scalars:
+        ID: number
+        DateTime: string
+
+  src/api/graphql/generated/operations.ts:
+    preset: import-types
+    presetConfig:
+      typesPath: ./graphql.d
+    plugins:
+      - "typescript-operations"
+    config:
+      # TODO use addOperationExport and near-operation-file preset
+      typesPrefix: I
+      skipTypename: true
+      preResolveTypes: true
+      scalars:
+        ID: number
+        DateTime: string
+
+  src/api/graphql/generated/apollo.ts:
+    preset: import-types
+    presetConfig:
+      typesPath: ./operations
+    plugins:
+      - "typescript-react-apollo"
+    config:
+      typesPrefix: I
+      gqlImport: graphql-tag
+      scalars:
+        ID: number
+        DateTime: string

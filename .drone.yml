@@ -1,0 +1,124 @@
+kind: pipeline
+type: docker
+name: develop
+
+steps:
+  - name: build develop
+    image: docker
+    environment:
+      VERSION: ${DRONE_SOURCE_BRANCH}
+      AWS_ACCESS_KEY:
+        from_secret: s3_access_key_id
+      AWS_SECRET_KEY:
+        from_secret: s3_secret_access_key
+      AWS_ENDPOINT:
+        from_secret: s3_endpoint
+      AWS_TARGET: ${DRONE_REPO_NAME}/${DRONE_SOURCE_BRANCH}/
+      AWS_BUCKET: my-super-bucket
+    commands:
+      - >-
+        docker build
+        --build-arg AWS_ACCESS_KEY=$AWS_ACCESS_KEY
+        --build-arg AWS_SECRET_KEY=$AWS_SECRET_KEY
+        --build-arg AWS_ENDPOINT=$AWS_ENDPOINT
+        --build-arg AWS_TARGET=$AWS_TARGET
+        --build-arg AWS_BUCKET=$AWS_BUCKET
+        --build-arg VERSION=$VERSION .
+    volumes:
+      - name: docker
+        path: /var/run/docker.sock
+
+  - name: notify
+    image: appleboy/drone-telegram
+    settings:
+      token:
+        from_secret: telegram_token
+      to:
+        from_secret: telegram_chat_id
+      message: >
+        {{#success build.status}}
+        ✅ #{{build.number}} {{repo.name}} / {{commit.branch}} - {{commit.message}}
+        link: {{commit.branch}}.{{repo.name}}.example.com
+        {{else}}
+        🛑#{{build.number}} {{repo.name}} / {{commit.branch}} - {{commit.message}}
+        @{{commit.author}} please fix it
+        {{/success}}
+    when:
+      status:
+        - success
+        - failure
+
+trigger:
+  event:
+    - push
+  branch:
+    exclude:
+      - master
+
+volumes:
+  - name: docker
+    host:
+      path: /var/run/docker.sock
+
+---
+kind: pipeline
+type: docker
+name: production
+
+steps:
+  - name: build production
+    image: docker
+    environment:
+      VERSION: production
+
+      AWS_ACCESS_KEY:
+        from_secret: s3_access_key_id
+      AWS_SECRET_KEY:
+        from_secret: s3_secret_access_key
+      AWS_ENDPOINT:
+        from_secret: s3_endpoint
+      AWS_TARGET: ${DRONE_REPO_NAME}/${DRONE_SOURCE_BRANCH}/
+      AWS_BUCKET: my-super-bucket
+    commands:
+      - >-
+        docker build
+        --build-arg AWS_ACCESS_KEY=$AWS_ACCESS_KEY
+        --build-arg AWS_SECRET_KEY=$AWS_SECRET_KEY
+        --build-arg AWS_ENDPOINT=$AWS_ENDPOINT
+        --build-arg AWS_TARGET=$AWS_TARGET
+        --build-arg AWS_BUCKET=$AWS_BUCKET
+        --build-arg VERSION=$VERSION .
+    volumes:
+      - name: docker
+        path: /var/run/docker.sock
+
+  - name: notify
+    image: appleboy/drone-telegram
+    settings:
+      token:
+        from_secret: telegram_token
+      to:
+        from_secret: telegram_chat_id
+      message: >
+        {{#success build.status}}
+        ✅ #{{build.number}} {{repo.name}} / {{commit.branch}} - {{commit.message}}.
+        link: example.com
+        {{else}}
+        🛑#{{build.number}} {{repo.name}} / {{commit.branch}} - {{commit.message}}.
+        @{{commit.author}} please fix it
+        {{/success}}
+    when:
+      status:
+        - success
+        - failure
+
+trigger:
+  event:
+    - push
+  branch:
+    - master
+
+volumes:
+  - name: docker
+    host:
+      path: /var/run/docker.sock
