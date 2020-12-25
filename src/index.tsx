@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import reportWebVitals from './reportWebVitals'
 import * as Sentry from '@sentry/react'
 import { App } from 'components/App'
+import { YMaps } from 'react-yandex-maps'
 
 import './index.scss'
 
@@ -17,7 +18,9 @@ if (process.env.NODE_ENV === 'production')
 ReactDOM.render(
 	<React.StrictMode>
 		<Sentry.ErrorBoundary>
-			<App />
+			<YMaps query={{ apikey: process.env.REACT_APP_YANDEX_API_KEY }}>
+				<App />
+			</YMaps>
 		</Sentry.ErrorBoundary>
 	</React.StrictMode>,
 	document.getElementById('root'),

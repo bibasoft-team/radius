@@ -22,6 +22,7 @@
 		"react-router": "^5.2.0",
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "4.0.1",
+		"react-yandex-maps": "^4.6.0",
 		"sass": "^1.26.10",
 		"shelljs.exec": "^1.1.8",
 		"typescript": "^4.0.3",

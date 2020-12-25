@@ -1,3 +1,37 @@
 .wrapper {
 	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+}
+
+.headerWrapper {
+	display: flex;
+	justify-content: center;
+	height: 70px;
+	flex-shrink: 0;
+	padding: 0 30px;
+}
+
+.header {
+	flex: 1 0;
+	max-width: 700px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.searchWrapper,
+.radiusWrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.fieldName {
+	margin-bottom: 5px;
+}
+
+.map {
+	width: 100%;
+	height: 100%;
 }
