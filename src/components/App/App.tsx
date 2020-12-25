@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import classNamesBind from 'classnames/bind'
 import styles from './App.module.scss'
 import { Map, ZoomControl, Circle, Placemark } from 'react-yandex-maps'
