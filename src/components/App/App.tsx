@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import classNamesBind from 'classnames/bind'
 import styles from './App.module.scss'
 import { Map, ZoomControl, Circle, Placemark } from 'react-yandex-maps'
@@ -7,15 +7,33 @@ import { AppProps } from './App.d'
 
 const cx = classNamesBind.bind(styles)
 
+// TODO refactoring
+var minp = 0
+var maxp = 1000
+
+// The result should be between 100 an 10000000
+var minv = Math.log(1)
+var maxv = Math.log(20_000)
+
+var scale = (maxv - minv) / (maxp - minp)
+
 const App: React.FC<AppProps.Props> = props => {
 	const { className } = props
+
+	const mapRef = useRef<any>(null)
 
 	const [center, setCenter] = useState([55.75, 37.57])
 	const [radius, setRadius] = useState(10)
 
+	const _setRadius = (value: number) => {
+		// mapRef.current.setZoom(zoom)
+		setRadius(value)
+	}
+
 	const onRadiusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const _radius = Number(e.target.value)
-		if (_radius && !Number.isNaN(_radius)) setRadius(_radius)
+
+		if (!Number.isNaN(_radius)) _setRadius(_radius)
 	}
 
 	const onCenterChange = (e: any) => {
@@ -25,18 +43,11 @@ const App: React.FC<AppProps.Props> = props => {
 
 	function logslider(e) {
 		const position = Number(e.target.value)
-		// position will be between 0 and 100
-		var minp = 0
-		var maxp = 1000
+		_setRadius(Math.exp(minv + scale * (position - minp)))
+	}
 
-		// The result should be between 100 an 10000000
-		var minv = Math.log(1)
-		var maxv = Math.log(20_000)
-
-		// calculate adjustment factor
-		var scale = (maxv - minv) / (maxp - minp)
-
-		setRadius(Math.exp(minv + scale * (position - minp)))
+	function logposition(value: number) {
+		return (Math.log(value) - minv) / scale + minp
 	}
 
 	return (
@@ -44,7 +55,7 @@ const App: React.FC<AppProps.Props> = props => {
 			<div style={{ width: '100%' }}>
 				<input
 					style={{ width: '100%' }}
-					defaultValue={radius}
+					value={logposition(radius)}
 					onChange={logslider}
 					type='range'
 					min={0}
@@ -58,7 +69,7 @@ const App: React.FC<AppProps.Props> = props => {
 					<div className={cx('radiusWrapper')}>
 						<div className={cx('fieldName')}>Радиус круга: </div>
 						<div>
-							<input className={cx('search')} defaultValue={radius} onChange={onRadiusChange} />
+							<input className={cx('search')} value={radius.toFixed()} onChange={onRadiusChange} />
 							км
 						</div>
 					</div>
@@ -66,6 +77,7 @@ const App: React.FC<AppProps.Props> = props => {
 			</div>
 
 			<Map
+				instanceRef={ref => (mapRef.current = ref)}
 				className={cx('map')}
 				defaultState={{
 					center,
